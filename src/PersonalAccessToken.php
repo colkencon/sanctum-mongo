@@ -2,10 +2,10 @@
 
 namespace ColkenCon\Sanctum;
 
-use Jenssegers\Mongodb\Eloquent\Model as Model;
+use Jenssegers\Mongodb\Eloquent\Model as MongoEloquent;
 use ColkenCon\Sanctum\Contracts\HasAbilities;
 
-class PersonalAccessToken extends Model implements HasAbilities
+class PersonalAccessToken extends MongoEloquent implements HasAbilities
 {
     protected $connection = 'mongodb';
     /**

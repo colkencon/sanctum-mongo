@@ -63,7 +63,7 @@ class SanctumServiceProvider extends ServiceProvider
     protected function registerMigrations()
     {
         if (Sanctum::shouldRunMigrations()) {
-             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            return $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
 
@@ -125,8 +125,8 @@ class SanctumServiceProvider extends ServiceProvider
      */
     protected function configureMiddleware()
     {
-        $kernel = app()->make(Kernel::class);
+        $kernel = $this->app->make(Kernel::class);
 
-        $kernel->prependToMiddlewarePriority(\ColkenCon\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class);
+        $kernel->prependToMiddlewarePriority(EnsureFrontendRequestsAreStateful::class);
     }
 }

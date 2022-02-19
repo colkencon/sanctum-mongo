@@ -5,7 +5,7 @@ namespace ColkenCon\Sanctum;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-
+use Laravel\Sanctum\TransientToken;
 
 class Guard
 {

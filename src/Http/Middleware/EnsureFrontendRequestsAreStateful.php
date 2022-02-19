@@ -55,20 +55,14 @@ class EnsureFrontendRequestsAreStateful
      */
     public static function fromFrontend($request)
     {
-        $domain = $request->headers->get('referer') ?: $request->headers->get('origin');
-
-        if (is_null($domain)) {
-            return false;
-        }
-
-        $domain = Str::replaceFirst('https://', '', $domain);
-        $domain = Str::replaceFirst('http://', '', $domain);
-        $domain = Str::endsWith($domain, '/') ? $domain : "{$domain}/";
+        $referer = Str::replaceFirst('https://', '', $request->headers->get('referer'));
+        $referer = Str::replaceFirst('http://', '', $referer);
+        $referer = Str::endsWith($referer, '/') ? $referer : "{$referer}/";
 
         $stateful = array_filter(config('sanctum.stateful', []));
 
         return Str::is(Collection::make($stateful)->map(function ($uri) {
-            return trim($uri).'/*';
-        })->all(), $domain);
+            return trim($uri) . '/*';
+        })->all(), $referer);
     }
 }

@@ -14,13 +14,6 @@ class Sanctum
     public static $personalAccessTokenModel = 'ColkenCon\\Sanctum\\PersonalAccessToken';
 
     /**
-     * A callback that can add to the validation of the access token.
-     *
-     * @var callable|null
-     */
-    public static $accessTokenAuthenticationCallback;
-
-    /**
      * Indicates if Sanctum's migrations will be run.
      *
      * @var bool
@@ -30,7 +23,7 @@ class Sanctum
     /**
      * Set the current user for the application with the given abilities.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|\ColkenCon\Sanctum\HasApiTokens  $user
+     * @param  \Illuminate\Contracts\Auth\Authenticatable|\Laravel\Sanctum\HasApiTokens  $user
      * @param  array  $abilities
      * @param  string  $guard
      * @return \Illuminate\Contracts\Auth\Authenticatable
@@ -70,7 +63,6 @@ class Sanctum
     {
         static::$personalAccessTokenModel = $model;
     }
-
 
     /**
      * Determine if Sanctum's migrations should be run.
