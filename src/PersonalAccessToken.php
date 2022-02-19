@@ -2,12 +2,13 @@
 
 namespace ColkenCon\Sanctum;
 
-use Jenssegers\Mongodb\Eloquent\Model as MongoEloquent;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 use ColkenCon\Sanctum\Contracts\HasAbilities;
 
-class PersonalAccessToken extends MongoEloquent implements HasAbilities
+class PersonalAccessToken extends Eloquent implements HasAbilities
 {
     protected $connection = 'mongodb';
+    protected $collection = 'personal_access_tokens';
     /**
      * The attributes that should be cast to native types.
      *

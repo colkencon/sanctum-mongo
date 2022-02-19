@@ -3,15 +3,13 @@
 namespace ColkenCon\Sanctum;
 
 use Illuminate\Support\Str;
-use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
 trait HasApiTokens
 {
-    use HybridRelations;
     /**
      * The access token the user is using for the current request.
      *
-     * @var \ColkenCon\Sanctum\Contracts\HasAbilities
+     * @var \Laravel\Sanctum\Contracts\HasAbilities
      */
     protected $accessToken;
 
@@ -41,7 +39,7 @@ trait HasApiTokens
      *
      * @param  string  $uniqueId
      * @param  array  $abilities
-     * @return \ColkenCon\Sanctum\NewAccessToken
+     * @return \Laravel\Sanctum\NewAccessToken
      */
     public function createToken(string $uniqueId, array $abilities = ['*'])
     {
@@ -57,7 +55,7 @@ trait HasApiTokens
     /**
      * Get the access token currently associated with the user.
      *
-     * @return \ColkenCon\Sanctum\Contracts\HasAbilities
+     * @return \Laravel\Sanctum\Contracts\HasAbilities
      */
     public function currentAccessToken()
     {
@@ -67,7 +65,7 @@ trait HasApiTokens
     /**
      * Set the current access token for the user.
      *
-     * @param  \ColkenCon\Sanctum\Contracts\HasAbilities  $accessToken
+     * @param  \Laravel\Sanctum\Contracts\HasAbilities  $accessToken
      * @return $this
      */
     public function withAccessToken($accessToken)
