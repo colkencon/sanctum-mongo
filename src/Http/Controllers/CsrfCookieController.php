@@ -14,12 +14,8 @@ class CsrfCookieController
      * @param  \Illuminate\Http\Request  $request
      * @return JsonResponse|Response
      */
-    public function show(Request $request)
+    public function show()
     {
-        if ($request->expectsJson()) {
-            return new JsonResponse(null, 204);
-        }
-
         return new Response('', 204);
     }
 }

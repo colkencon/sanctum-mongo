@@ -71,16 +71,6 @@ class Sanctum
         static::$personalAccessTokenModel = $model;
     }
 
-    /**
-     * Specify a callback that should be used to authenticate access tokens.
-     *
-     * @param  callable  $callback
-     * @return void
-     */
-    public static function authenticateAccessTokensUsing(callable $callback)
-    {
-        static::$accessTokenAuthenticationCallback = $callback;
-    }
 
     /**
      * Determine if Sanctum's migrations should be run.
