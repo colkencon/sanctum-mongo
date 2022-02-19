@@ -5,6 +5,7 @@ namespace ColkenCon\Sanctum;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class Guard
 {
@@ -55,6 +56,7 @@ class Guard
 
         foreach (Arr::wrap(config('sanctum.guard', 'web')) as $guard) {
             if ($user = $this->auth->guard($guard)->user()) {
+                Log::info($user);
                 return $this->supportsTokens($user)
                     ? $user->withAccessToken(new TransientToken)
                     : $user;
