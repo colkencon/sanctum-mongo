@@ -3,9 +3,11 @@
 namespace ColkenCon\Sanctum;
 
 use Illuminate\Support\Str;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
 trait HasApiTokens
 {
+    use HybridRelations;
     /**
      * The access token the user is using for the current request.
      *
