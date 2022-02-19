@@ -9,7 +9,7 @@ trait HasApiTokens
     /**
      * The access token the user is using for the current request.
      *
-     * @var \Laravel\Sanctum\Contracts\HasAbilities
+     * @var \ColkenCon\Sanctum\Contracts\HasAbilities
      */
     protected $accessToken;
 
@@ -39,7 +39,7 @@ trait HasApiTokens
      *
      * @param  string  $uniqueId
      * @param  array  $abilities
-     * @return \Laravel\Sanctum\NewAccessToken
+     * @return \ColkenCon\Sanctum\NewAccessToken
      */
     public function createToken(string $uniqueId, array $abilities = ['*'])
     {
@@ -55,7 +55,7 @@ trait HasApiTokens
     /**
      * Get the access token currently associated with the user.
      *
-     * @return \Laravel\Sanctum\Contracts\HasAbilities
+     * @return \ColkenCon\Sanctum\Contracts\HasAbilities
      */
     public function currentAccessToken()
     {
@@ -65,7 +65,7 @@ trait HasApiTokens
     /**
      * Set the current access token for the user.
      *
-     * @param  \Laravel\Sanctum\Contracts\HasAbilities  $accessToken
+     * @param  \ColkenCon\Sanctum\Contracts\HasAbilities  $accessToken
      * @return $this
      */
     public function withAccessToken($accessToken)

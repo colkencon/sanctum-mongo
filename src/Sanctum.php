@@ -23,7 +23,7 @@ class Sanctum
     /**
      * Set the current user for the application with the given abilities.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|\Laravel\Sanctum\HasApiTokens  $user
+     * @param  \Illuminate\Contracts\Auth\Authenticatable|\ColkenCon\Sanctum\HasApiTokens  $user
      * @param  array  $abilities
      * @param  string  $guard
      * @return \Illuminate\Contracts\Auth\Authenticatable
