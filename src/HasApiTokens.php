@@ -1,6 +1,6 @@
 <?php
 
-namespace Zach\Sanctum;
+namespace ColkenCon\Sanctum;
 
 use Illuminate\Support\Str;
 
@@ -65,7 +65,7 @@ trait HasApiTokens
     /**
      * Set the current access token for the user.
      *
-     * @param  \Laravel\Sanctum\Contracts\HasAbilities  $accessToken
+     * @param  \ColkenCon\Sanctum\Contracts\HasAbilities  $accessToken
      * @return $this
      */
     public function withAccessToken($accessToken)

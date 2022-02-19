@@ -1,14 +1,14 @@
 <?php
 
-namespace Zach\Sanctum;
+namespace ColkenCon\Sanctum;
 
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Zach\Sanctum\Http\Controllers\CsrfCookieController;
-use Zach\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use ColkenCon\Sanctum\Http\Controllers\CsrfCookieController;
+use ColkenCon\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class SanctumServiceProvider extends ServiceProvider
 {
@@ -63,7 +63,7 @@ class SanctumServiceProvider extends ServiceProvider
     protected function registerMigrations()
     {
         if (Sanctum::shouldRunMigrations()) {
-            return $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
 
@@ -125,8 +125,8 @@ class SanctumServiceProvider extends ServiceProvider
      */
     protected function configureMiddleware()
     {
-        $kernel = $this->app->make(Kernel::class);
+        $kernel = app()->make(Kernel::class);
 
-        $kernel->prependToMiddlewarePriority(EnsureFrontendRequestsAreStateful::class);
+        $kernel->prependToMiddlewarePriority(\ColkenCon\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class);
     }
 }

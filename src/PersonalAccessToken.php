@@ -1,11 +1,11 @@
 <?php
 
-namespace Zach\Sanctum;
+namespace ColkenCon\Sanctum;
 
-use Jenssegers\Mongodb\Eloquent\Model as MongoEloquent;
-use Zach\Sanctum\Contracts\HasAbilities;
+use Jenssegers\Mongodb\Eloquent\Model as Model;
+use ColkenCon\Sanctum\Contracts\HasAbilities;
 
-class PersonalAccessToken extends MongoEloquent implements HasAbilities
+class PersonalAccessToken extends Model implements HasAbilities
 {
     protected $connection = 'mongodb';
     /**

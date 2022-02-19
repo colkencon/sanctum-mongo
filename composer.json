@@ -1,6 +1,6 @@
 {
-    "name": "zach/sanctum-mongo",
-    "description": "Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.This will be more friendly to mongodb.",
+    "name": "colkencon/sanctum-mongo",
+    "description": "Laravel Sanctum port for compatibility for Laravel MongoDB.",
     "authors": [
         {
             "name": "Taylor Otwell",
@@ -9,11 +9,15 @@
         {
             "name": "Zach.Lu",
             "email": "1049655193@qq.com"
+        },
+        {
+            "name": "Kenneth ColkenConsult",
+            "email": "info@colkenconsult.com"
         }
     ],
     "support": {
-        "issues": "https://github.com/Zach-Lu/sanctum-mongo/issues",
-        "source": "https://github.com/Zach-Lu/sanctum-mongo"
+        "issues": "https://github.com/colkencon/sanctum-mongo/issues",
+        "source": "https://github.com/colkencon/sanctum-mongo"
     },
     "require": {
         "php": "^7.2|^8.0",
@@ -30,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Zach\\Sanctum\\": "src/"
+            "ColkenCon\\Sanctum\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Zach\\Sanctum\\Tests\\": "tests/"
+            "ColkenCon\\Sanctum\\Tests\\": "tests/"
         }
     },
     "extra": {

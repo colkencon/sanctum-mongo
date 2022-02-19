@@ -1,6 +1,6 @@
 <?php
 
-namespace Zach\Sanctum;
+namespace ColkenCon\Sanctum;
 
 use Mockery;
 
@@ -11,7 +11,14 @@ class Sanctum
      *
      * @var string
      */
-    public static $personalAccessTokenModel = 'Zach\\Sanctum\\PersonalAccessToken';
+    public static $personalAccessTokenModel = 'ColkenCon\\Sanctum\\PersonalAccessToken';
+
+    /**
+     * A callback that can add to the validation of the access token.
+     *
+     * @var callable|null
+     */
+    public static $accessTokenAuthenticationCallback;
 
     /**
      * Indicates if Sanctum's migrations will be run.
@@ -23,7 +30,7 @@ class Sanctum
     /**
      * Set the current user for the application with the given abilities.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|\Laravel\Sanctum\HasApiTokens  $user
+     * @param  \Illuminate\Contracts\Auth\Authenticatable|\ColkenCon\Sanctum\HasApiTokens  $user
      * @param  array  $abilities
      * @param  string  $guard
      * @return \Illuminate\Contracts\Auth\Authenticatable
@@ -62,6 +69,17 @@ class Sanctum
     public static function usePersonalAccessTokenModel($model)
     {
         static::$personalAccessTokenModel = $model;
+    }
+
+    /**
+     * Specify a callback that should be used to authenticate access tokens.
+     *
+     * @param  callable  $callback
+     * @return void
+     */
+    public static function authenticateAccessTokensUsing(callable $callback)
+    {
+        static::$accessTokenAuthenticationCallback = $callback;
     }
 
     /**

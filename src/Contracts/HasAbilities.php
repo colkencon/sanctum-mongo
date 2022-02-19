@@ -1,6 +1,6 @@
 <?php
 
-namespace Zach\Sanctum\Contracts;
+namespace ColkenCon\Sanctum\Contracts;
 
 interface HasAbilities
 {

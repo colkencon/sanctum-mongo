@@ -1,8 +1,8 @@
 <?php
 
-namespace Zach\Sanctum;
+namespace ColkenCon\Sanctum;
 
-use Zach\Sanctum\Contracts\HasAbilities;
+use ColkenCon\Sanctum\Contracts\HasAbilities;
 
 class TransientToken implements HasAbilities
 {

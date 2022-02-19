@@ -1,6 +1,6 @@
 <?php
 
-namespace Zach\Sanctum\Http\Middleware;
+namespace ColkenCon\Sanctum\Http\Middleware;
 
 use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Collection;
@@ -55,14 +55,20 @@ class EnsureFrontendRequestsAreStateful
      */
     public static function fromFrontend($request)
     {
-        $referer = Str::replaceFirst('https://', '', $request->headers->get('referer'));
-        $referer = Str::replaceFirst('http://', '', $referer);
-        $referer = Str::endsWith($referer, '/') ? $referer : "{$referer}/";
+        $domain = $request->headers->get('referer') ?: $request->headers->get('origin');
+
+        if (is_null($domain)) {
+            return false;
+        }
+
+        $domain = Str::replaceFirst('https://', '', $domain);
+        $domain = Str::replaceFirst('http://', '', $domain);
+        $domain = Str::endsWith($domain, '/') ? $domain : "{$domain}/";
 
         $stateful = array_filter(config('sanctum.stateful', []));
 
         return Str::is(Collection::make($stateful)->map(function ($uri) {
-            return trim($uri) . '/*';
-        })->all(), $referer);
+            return trim($uri).'/*';
+        })->all(), $domain);
     }
 }
