@@ -26,8 +26,8 @@ class SanctumServiceProvider extends ServiceProvider
             ], config('auth.guards.sanctum', [])),
         ]);
 
-        if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__ . '/../config/sanctum.php', 'sanctum');
+        if (! app()->configurationIsCached()) {
+            $this->mergeConfigFrom(__DIR__.'/../config/sanctum.php', 'sanctum');
         }
     }
 
@@ -38,15 +38,15 @@ class SanctumServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
+        if (app()->runningInConsole()) {
             $this->registerMigrations();
 
             $this->publishes([
-                __DIR__ . '/../database/migrations' => database_path('migrations'),
+                __DIR__.'/../database/migrations' => database_path('migrations'),
             ], 'sanctum-migrations');
 
             $this->publishes([
-                __DIR__ . '/../config/sanctum.php' => config_path('sanctum.php'),
+                __DIR__.'/../config/sanctum.php' => config_path('sanctum.php'),
             ], 'sanctum-config');
         }
 
@@ -63,7 +63,7 @@ class SanctumServiceProvider extends ServiceProvider
     protected function registerMigrations()
     {
         if (Sanctum::shouldRunMigrations()) {
-            return $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            return $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
 
@@ -74,14 +74,14 @@ class SanctumServiceProvider extends ServiceProvider
      */
     protected function defineRoutes()
     {
-        if ($this->app->routesAreCached() || config('sanctum.routes') === false) {
+        if (app()->routesAreCached() || config('sanctum.routes') === false) {
             return;
         }
 
         Route::group(['prefix' => config('sanctum.prefix', 'sanctum')], function () {
             Route::get(
                 '/csrf-cookie',
-                CsrfCookieController::class . '@show'
+                CsrfCookieController::class.'@show'
             )->middleware('web');
         });
     }
@@ -96,7 +96,7 @@ class SanctumServiceProvider extends ServiceProvider
         Auth::resolved(function ($auth) {
             $auth->extend('sanctum', function ($app, $name, array $config) use ($auth) {
                 return tap($this->createGuard($auth, $config), function ($guard) {
-                    $this->app->refresh('request', $guard, 'setRequest');
+                    app()->refresh('request', $guard, 'setRequest');
                 });
             });
         });
@@ -105,16 +105,16 @@ class SanctumServiceProvider extends ServiceProvider
     /**
      * Register the guard.
      *
-     * @param \Illuminate\Contracts\Auth\Factory  $auth
-     * @param array $config
+     * @param  \Illuminate\Contracts\Auth\Factory  $auth
+     * @param  array  $config
      * @return RequestGuard
      */
     protected function createGuard($auth, $config)
     {
         return new RequestGuard(
             new Guard($auth, config('sanctum.expiration'), $config['provider']),
-            $this->app['request'],
-            $auth->createUserProvider()
+            request(),
+            $auth->createUserProvider($config['provider'] ?? null)
         );
     }
 
@@ -125,7 +125,7 @@ class SanctumServiceProvider extends ServiceProvider
      */
     protected function configureMiddleware()
     {
-        $kernel = $this->app->make(Kernel::class);
+        $kernel = app()->make(Kernel::class);
 
         $kernel->prependToMiddlewarePriority(EnsureFrontendRequestsAreStateful::class);
     }

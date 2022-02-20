@@ -39,11 +39,11 @@ class PersonalAccessToken extends Eloquent implements HasAbilities
         'token',
     ];
 
-    /**
-     * Get the tokenable model that the access token belongs to.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
+//    /**
+//     * Get the tokenable model that the access token belongs to.
+//     *
+//     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+//     */
     public function tokenable()
     {
         return $this->morphTo('tokenable');
@@ -77,7 +77,7 @@ class PersonalAccessToken extends Eloquent implements HasAbilities
     public function can($ability)
     {
         return in_array('*', $this->abilities) ||
-        array_key_exists($ability, array_flip($this->abilities));
+            array_key_exists($ability, array_flip($this->abilities));
     }
 
     /**

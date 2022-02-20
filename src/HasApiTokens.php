@@ -3,21 +3,23 @@
 namespace ColkenCon\Sanctum;
 
 use Illuminate\Support\Str;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
 trait HasApiTokens
 {
+    use HybridRelations;
     /**
      * The access token the user is using for the current request.
      *
-     * @var \Laravel\Sanctum\Contracts\HasAbilities
+     * @var \ColkenCon\Sanctum\Contracts\HasAbilities
      */
     protected $accessToken;
 
-    /**
-     * Get the access tokens that belong to model.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
+//    /**
+//     * Get the access tokens that belong to model.
+//     *
+//     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+//     */
     public function tokens()
     {
         return $this->morphMany(Sanctum::$personalAccessTokenModel, 'tokenable');
@@ -31,31 +33,31 @@ trait HasApiTokens
      */
     public function tokenCan(string $ability)
     {
-        return $this->accessToken ? $this->accessToken->can($ability) : false;
+        return $this->accessToken && $this->accessToken->can($ability);
     }
 
     /**
      * Create a new personal access token for the user.
      *
-     * @param  string  $uniqueId
+     * @param  string  $name
      * @param  array  $abilities
-     * @return \Laravel\Sanctum\NewAccessToken
+     * @return \ColkenCon\Sanctum\NewAccessToken
      */
-    public function createToken(string $uniqueId, array $abilities = ['*'])
+    public function createToken(string $name, array $abilities = ['*'])
     {
         $token = $this->tokens()->create([
-            'uniqueId' => $uniqueId,
-            'token' => hash('sha256', $plainTextToken = Str::random(80)),
+            'name' => $name,
+            'token' => hash('sha256', $plainTextToken = Str::random(40)),
             'abilities' => $abilities,
         ]);
 
-        return new NewAccessToken($token, $token->id . '|' . $plainTextToken);
+        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
     }
 
     /**
      * Get the access token currently associated with the user.
      *
-     * @return \Laravel\Sanctum\Contracts\HasAbilities
+     * @return \ColkenCon\Sanctum\Contracts\HasAbilities
      */
     public function currentAccessToken()
     {
@@ -65,7 +67,7 @@ trait HasApiTokens
     /**
      * Set the current access token for the user.
      *
-     * @param  \Laravel\Sanctum\Contracts\HasAbilities  $accessToken
+     * @param  \ColkenCon\Sanctum\Contracts\HasAbilities  $accessToken
      * @return $this
      */
     public function withAccessToken($accessToken)
